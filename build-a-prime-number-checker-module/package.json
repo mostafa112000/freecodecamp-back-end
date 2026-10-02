@@ -1,0 +1,16 @@
+{
+  "name": "prime-checker",
+  "version": "1.0.0",
+  "description": "used to determine whether a number is a prime number or not.",
+  "keywords": [
+    "prime",
+    "number"
+  ],
+  "license": "MIT",
+  "author": "Mostafa Gaber",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.test.js"
+  }
+}
