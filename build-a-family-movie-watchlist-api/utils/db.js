@@ -2,10 +2,19 @@ import fs from "fs";
 import path from "path";
 import users from "../data/users.json" with { type: "json" };
 
+const USERS_PATH = path.join(
+  import.meta.dirname,
+  "../data/users.json",
+);
+
 const WATCHLISTS_PATH = path.join(
   import.meta.dirname,
   "../data/watchlists.json",
 );
+
+export function writeUsers(users) {
+  fs.writeFileSync(USERS_PATH, JSON.stringify(users, null, 2));
+}
 
 export function readWatchlists() {
   return JSON.parse(fs.readFileSync(WATCHLISTS_PATH, "utf-8"));
@@ -20,7 +29,7 @@ export function findByUsername(username) {
 }
 
 export function findById(id) {
-  return users.find((u) => u.id === id) || null;
+  return users.find((u) => Number(u.id) === Number(id)) || null;
 }
 
 export function getWatchlist(userId) {
@@ -63,7 +72,7 @@ export function updateMovie(userId, movieId, updates) {
 
   const watchlists = readWatchlists();
   const list = watchlists[userId] || [];
-  const index = list.findIndex((m) => m.id === movieId);
+  const index = list.findIndex((m) => Number(m.id) === Number(movieId));
 
   if (index === -1) {
     return null;
@@ -82,7 +91,7 @@ export function deleteMovie(userId, movieId) {
   }
   const watchlists = readWatchlists();
   const list = watchlists[userId] || [];
-  const index = list.findIndex((m) => m.id === movieId);
+  const index = list.findIndex((m) => Number(m.id) === Number(movieId));
 
   if (index === -1) {
     return null;
